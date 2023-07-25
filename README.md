@@ -1,2 +1,2 @@
 # cpsc-330-rishika
-Applied Machine Learning assignments (3-8 completed together with teammate).
+UBC CPSC 330 (Applied Machine Learning) assigned projects (3-8 completed together with teammate).
