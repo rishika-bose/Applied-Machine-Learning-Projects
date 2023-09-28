@@ -1,0 +1,37 @@
+models = {
+    "Ridge": Ridge(),
+    "Random Forest": RandomForestRegressor(),
+}
+
+score_types_reg = {
+    "neg_mean_squared_error": "neg_mean_squared_error",
+    "neg_root_mean_squared_error": "neg_root_mean_squared_error",
+    "neg_mean_absolute_error": "neg_mean_absolute_error",
+    "r2": "r2",
+    "neg_mean_absolute_percentage_error": "neg_mean_absolute_percentage_error",
+}
+columns_list=[]
+for k in models.keys():
+    for s in score_types_reg.keys():
+        columns_list.append(k+"_"+s)
+
+all_scores = pd.DataFrame(columns=["model", "score_types_reg", "fit_time", "score_time", "test_score", "train_score"])
+
+for mkey in models:
+    for skey in score_types_reg:
+        new_pipe = make_pipeline(calhousing_preprocessor, models.get(mkey))
+        new_scores = cross_validate(new_pipe, calhousing_X_train, calhousing_y_train,
+                                    scoring=score_types_reg.get(skey), 
+                                    cv=5,
+                                    return_train_score=True,
+                                    n_jobs=-1)
+        new_mean_scores = pd.DataFrame(new_scores).mean()
+        all_scores = all_scores.append(pd.DataFrame(data={
+            "model":mkey,
+            "score_types_reg":skey,
+            "fit_time":new_mean_scores[0],
+            "score_time":new_mean_scores[1],
+            "test_score":new_mean_scores[2],
+            "train_score":new_mean_scores[3]}, index=[0]))
+        
+        #all_scores = all_scores.join(pd.DataFrame(new_scores).mean().to_frame(), rsuffix=(mkey+"_"+ skey))

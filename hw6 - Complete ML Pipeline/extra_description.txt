@@ -1,0 +1,4 @@
+It appears that no. of previous cancellations has a somewhat high correlation with no. of previous bookings not canceled, and both of them have a high correlation with if the customer is a repeated guest. This makes sense, as someone must be a repeat customer to have prev. cancellations or not. 
+
+There also appears to be a fairly high correlation with number of children, and room type reserved; and between room type reserved and room price.
+
