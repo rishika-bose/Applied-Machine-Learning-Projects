@@ -1,2 +1,2 @@
-# cpsc-330-rishika
-Applied Machine Learning assignments
+# Applied Machine Learning projects
+Projects completed for the class CPSC 330 - Applied Machine Learning.
